@@ -1,3 +1,6 @@
 streamlit
 openai
-python-docx
+pandas
+numpy
+numpy-financial
+xlsxwriter
