@@ -43,7 +43,7 @@ st.set_page_config(layout="wide")
 st.markdown("""
     <style>
     .block-container {
-        padding-top: 1rem;
+        padding-top: 3rem;
     }
     .chat-box {
         padding: 28px;
