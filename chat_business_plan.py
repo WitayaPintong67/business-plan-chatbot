@@ -233,6 +233,15 @@ with col_you:
             st.markdown(f"<div class='chat-message'><strong>You:</strong> {content_html}</div>", unsafe_allow_html=True)
 
 
+# --- Custom CSS for text area font size ---
+st.markdown("""
+    <style>
+    textarea[aria-label="✏️ Type your message below"] {
+        font-size: 24px; /* Adjust this value as needed (e.g., 14px, 20px) */
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 
 
 
