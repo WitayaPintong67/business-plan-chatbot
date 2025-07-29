@@ -214,6 +214,26 @@ with col_export:
         export_to_docx(st.session_state.chat_log)
         st.success("✅ Exported to Business_Plan.docx")
 
+col_download, col_upload = st.columns(2)
+
+with col_download:
+    if st.download_button(
+        label="📤 Download Chat History (.json)",
+        data=json.dumps(st.session_state.chat_log, ensure_ascii=False, indent=2),
+        file_name="chat_history.json",
+        mime="application/json",
+        key="download_chat"
+    ):
+        st.success("✅ File ready for download")
+
+with col_upload:
+    uploaded_file = st.file_uploader("📥 Upload Chat History (.json)", type="json", key="upload_chat")
+    if uploaded_file is not None:
+        try:
+            st.session_state.chat_log = json.load(uploaded_file)
+            st.success("✅ Chat history loaded from file.")
+        except Exception as e:
+            st.error(f"❌ Failed to load file: {e}")
 
 
 col_assist, col_you = st.columns(2)
