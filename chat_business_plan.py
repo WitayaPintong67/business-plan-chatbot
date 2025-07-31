@@ -243,8 +243,8 @@ with col_assist:
     for msg in st.session_state.chat_log:
         if msg["role"] == "assistant":
             content_html = msg["content"].replace("\n", "<br>")
-            st.markdown(f"<div class='chat-message'><strong>Assistant:</strong> {content_html}</div>", unsafe_allow_html=True)
-
+            #st.markdown(f"<div class='chat-message'><strong>Assistant:</strong> {content_html}</div>", unsafe_allow_html=True)
+            st.markdown(msg["content"], unsafe_allow_html=False)
 with col_you:
     st.markdown('<div class="header-user" style="text-align:center;">👤 You (User Input)</div>', unsafe_allow_html=True)
     for msg in st.session_state.chat_log:
