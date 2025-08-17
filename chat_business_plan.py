@@ -259,28 +259,25 @@ col_assist, col_you = st.columns(2)
 
 with col_assist:
     st.markdown('<div class="header-assistant" style="text-align:center;">🧠 Assistant (System)</div>', unsafe_allow_html=True)
-    st.markdown("""
-        <div style='height:400px; overflow-y:scroll; padding:10px; border:1px solid #ccc; border-radius:5px; background-color:#f5f5f5'>
-    """, unsafe_allow_html=True)
+    assistant_html = "<div style='height:400px; overflow-y:scroll; padding:10px; border:1px solid #ccc; border-radius:5px; background-color:#f5f5f5'>"
 
     for msg in st.session_state.chat_log:
         if msg["role"] == "assistant":
-            st.markdown(msg["content"], unsafe_allow_html=False)
+            assistant_html += f"<div class='chat-message'>{msg['content'].replace(chr(10), '<br>')}</div>"
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    assistant_html += "</div>"
+    st.markdown(assistant_html, unsafe_allow_html=True)
 
 with col_you:
     st.markdown('<div class="header-user" style="text-align:center;">👤 You (User Input)</div>', unsafe_allow_html=True)
-    st.markdown("""
-        <div style='height:400px; overflow-y:scroll; padding:10px; border:1px solid #ccc; border-radius:5px; background-color:#f5f5f5'>
-    """, unsafe_allow_html=True)
+    user_html = "<div style='height:400px; overflow-y:scroll; padding:10px; border:1px solid #ccc; border-radius:5px; background-color:#f5f5f5'>"
 
     for msg in st.session_state.chat_log:
         if msg["role"] == "user":
-            st.markdown(msg["content"], unsafe_allow_html=False)
+            user_html += f"<div class='chat-message'>{msg['content'].replace(chr(10), '<br>')}</div>"
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
+    user_html += "</div>"
+    st.markdown(user_html, unsafe_allow_html=True)
 
 
 
