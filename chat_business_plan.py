@@ -236,21 +236,52 @@ with col_upload:
             st.error(f"❌ Failed to load file: {e}")
 
 
+#col_assist, col_you = st.columns(2)
+
+#with col_assist:
+#    st.markdown('<div class="header-assistant" style="text-align:center;">🧠 Assistant (System)</div>', unsafe_allow_html=True)
+#    for msg in st.session_state.chat_log:
+#        if msg["role"] == "assistant":
+#            content_html = msg["content"].replace("\n", "<br>")
+#            #st.markdown(f"<div class='chat-message'><strong>Assistant:</strong> {content_html}</div>", unsafe_allow_html=True)
+#            st.markdown(msg["content"], unsafe_allow_html=False)
+#with col_you:
+#    st.markdown('<div class="header-user" style="text-align:center;">👤 You (User Input)</div>', unsafe_allow_html=True)
+#    for msg in st.session_state.chat_log:
+#        if msg["role"] == "user":
+#            content_html = msg["content"].replace("\n", "<br>")
+#            st.markdown(f"<div class='chat-message'><strong>You:</strong> {content_html}</div>", unsafe_allow_html=True)
+
+
+# -------------- NEW ----------
+# --- Fixed height scrollable columns ---
 col_assist, col_you = st.columns(2)
 
 with col_assist:
     st.markdown('<div class="header-assistant" style="text-align:center;">🧠 Assistant (System)</div>', unsafe_allow_html=True)
+    st.markdown("""
+        <div style='height:400px; overflow-y:scroll; padding:10px; border:1px solid #ccc; border-radius:5px; background-color:#f5f5f5'>
+    """, unsafe_allow_html=True)
+
     for msg in st.session_state.chat_log:
         if msg["role"] == "assistant":
-            content_html = msg["content"].replace("\n", "<br>")
-            #st.markdown(f"<div class='chat-message'><strong>Assistant:</strong> {content_html}</div>", unsafe_allow_html=True)
             st.markdown(msg["content"], unsafe_allow_html=False)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
 with col_you:
     st.markdown('<div class="header-user" style="text-align:center;">👤 You (User Input)</div>', unsafe_allow_html=True)
+    st.markdown("""
+        <div style='height:400px; overflow-y:scroll; padding:10px; border:1px solid #ccc; border-radius:5px; background-color:#f5f5f5'>
+    """, unsafe_allow_html=True)
+
     for msg in st.session_state.chat_log:
         if msg["role"] == "user":
-            content_html = msg["content"].replace("\n", "<br>")
-            st.markdown(f"<div class='chat-message'><strong>You:</strong> {content_html}</div>", unsafe_allow_html=True)
+            st.markdown(msg["content"], unsafe_allow_html=False)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
 
 
 # --- Custom CSS for text area font size ---
