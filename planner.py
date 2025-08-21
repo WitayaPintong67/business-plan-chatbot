@@ -1,107 +1,83 @@
+from textwrap import dedent
+
+# Define the updated version of planner.py with HTML prompts
 
 def get_swot_prompt():
-    return """You're a business advisor guiding a user through a SWOT Analysis.
-Ask the user to describe:
-
-1. **Strengths**  
-Questions to consider:
-- What internal advantages give your business an edge?
-- Do you have skilled staff, loyal customers, or strong brand recognition?
-
-2. **Weaknesses**  
-Questions to consider:
-- What internal limitations hold your business back?
-- Do you lack experience, resources, or face quality/service issues?
-
-3. **Opportunities**  
-Questions to consider:
-- What external trends or needs can you take advantage of?
-- Are there new markets, technologies, or unmet needs?
-
-4. **Threats**  
-Questions to consider:
-- What external risks could challenge your business?
-- Are there economic shifts, competitors, or legal risks?
-
-After each input, acknowledge and ask for the next point.
-When all four are complete, summarize in a table.
-Please enter Strengths in the box ✏️ Type your message below, then press Send"""
+    return (
+        "<h3>SWOT Analysis</h3>"
+        "<p>You're a business advisor guiding a user through a SWOT Analysis. Ask the user to describe:</p>"
+        "<b>1. Strengths</b><br>"
+        "Questions to consider:<ul>"
+        "<li>What internal advantages give your business an edge?</li>"
+        "<li>Do you have skilled staff, loyal customers, or strong brand recognition?</li>"
+        "</ul>"
+        "<b>2. Weaknesses</b><br>"
+        "Questions to consider:<ul>"
+        "<li>What internal limitations hold your business back?</li>"
+        "<li>Do you lack experience, resources, or face quality/service issues?</li>"
+        "</ul>"
+        "<b>3. Opportunities</b><br>"
+        "Questions to consider:<ul>"
+        "<li>What external trends or needs can you take advantage of?</li>"
+        "<li>Is there a niche in the market you can fill?</li>"
+        "</ul>"
+        "<b>4. Threats</b><br>"
+        "Questions to consider:<ul>"
+        "<li>What external risks could threaten your success?</li>"
+        "<li>Are there competitors or regulations you should watch?</li>"
+        "</ul>"
+        "<p><i>Please format your responses clearly. All responses will be saved for summary.</i></p>"
+    )
 
 def get_vision_prompt():
-    return """Based on the SWOT, help the user define:
-- Vision (long-term aspiration)
-- Mission (core purpose)
-- SMART Objectives (3–5 goals that are Specific, Measurable, Achievable, Relevant, Time-bound)
-- Use realistic deadlines that reflect the current date, e.g., 6–12 months from now."""
+    return (
+            "<h3>Vision, Mission, and Objectives</h3>"
+            "<p>Please help the user define:</p>"
+            "<b>Vision:</b> A long-term inspirational statement of what the business aims to become.<br>"
+            "<b>Mission:</b> A brief statement explaining the purpose and core values of the business.<br>"
+            "<b>Objectives:</b> Specific, measurable goals the business will strive to achieve.<br>"
+            "<p>Format the output in clear HTML for display on a web interface.</p>"
+        )
 
 def get_strategy_prompt():
-    return """Based on SWOT and SMART Objectives, suggest 3–5 business strategies:
-- Use strengths to capitalize on opportunities
-- Mitigate weaknesses and avoid threats
-- Align with goals and values"""
+    return (
+            "<h3>Strategic Plan</h3>"
+            "<p>Based on the SWOT and Vision/Mission, please propose 3–5 strategies to help the business grow.</p>"
+            "<ul><li>Use strategic language</li><li>Use HTML format for clean rendering</li></ul>"
+        )
 
 def get_marketing_step_prompt(step):
-    steps = {
-        1: """Step 1: Target Market
+        prompts = {
+            1: "<h4>Step 1: Define your Target Market</h4><p>Who are your ideal customers? Be specific (e.g., age, income, behavior).</p>",
+            2: "<h4>Step 2: Positioning Statement</h4><p>How do you want your product/service to be perceived in the market?</p>",
+            3: "<h4>Step 3: Marketing Mix - Product</h4><p>What are the key features and benefits of your offering?</p>",
+            4: "<h4>Step 4: Marketing Mix - Price, Place, Promotion</h4><p>Describe your pricing model, distribution, and promotional strategy.</p>",
+            5: "<h4>Step 5: Additional Considerations</h4><p>Include customer service, digital marketing, branding ideas.</p>"
+        }
+        return prompts.get(step, "<p><i>Unknown step.</i></p>")
 
-Who is your ideal customer?
-Questions to consider:
-- What age/income/location group?
-- What are their core needs?Please enter your Target Market in the box ✏️ Type your message below, then press Send
-""",
+def get_marketing_summary_prompt(marketing_inputs):
+        return (
+            "<h3>Marketing Plan Summary</h3>"
+            "<p>Use the following data to summarize the business's marketing plan:</p>"
+            + "".join(f"<p><b>Step {k[-1]}:</b> {v}</p>" for k, v in marketing_inputs.items()) +
+            "<p>Format everything in clean HTML for website display.</p>"
+        )
 
-        2: """Step 2: Positioning Statement
+def get_executive_summary_prompt(language, user_data):
+        return (
+            "<h2>Executive Summary</h2>"
+            "<p>Summarize the business plan below based on these inputs:</p>"
+            f"<b>Business Info:</b> {user_data['business_info']}<br>"
+            f"<b>SWOT Summary:</b> {user_data['swot_summary']}<br>"
+            f"<b>Vision/Mission:</b> {user_data['vision_mission']}<br>"
+            f"<b>Strategies:</b> {user_data['strategy']}<br>"
+            f"<b>Marketing Plan:</b> {user_data['marketing']}<br>"
+            "<p>Please format the entire summary in readable HTML for clear visual presentation.</p>"
+        )
+""")
 
-What makes your business offering unique?
-Questions to consider:
-- How is it different from others?
-- What value or benefit matters most to the customer?
-Please enter your Market Positioning in the box ✏️ Type your message below, then press Send""",
 
-        3: """Step 3: Marketing Objectives
-
-Set 2–3 measurable goals.
-Examples:
-- Increase brand awareness by 30% in 6 months
-- Acquire 50 qualified leads per month
-Please enter your Marketing Objectives in the box ✏️ Type your message below, then press Send""",
-
-        4: """Step 4: Marketing Mix (4Ps)
-
-Provide details for:
-- Product: Key features, services, benefits
-- Price: Pricing strategy (premium, value, discount)
-- Place: How/where customers access the service
-- Promotion: Channels used (social media, events, ads)
-Please enter your Marketing Mix in the box ✏️ Type your message below, then press Send""",
-
-        5: """Step 5: Marketing Summary
-
-Summarize your full marketing plan using inputs from Steps 1–4."""
-    }
-    return steps.get(step, "Unknown step. Please restart the marketing plan.")
-
-def get_marketing_summary_prompt(user_inputs):
-    prompt = """
-You're a marketing strategist. Write a clear, professional, and insight-rich marketing plan summary based on the user's provided inputs.
-Analyze each component, synthesize key insights, and highlight strengths or gaps if any.
-Present it in a structured and polished tone like a professional business document.
-
-Here are the inputs:
-"""
-    prompt += f"\n1. Target Market: {user_inputs.get('step1', '[Not Provided]')}"
-    prompt += f"\n2. Positioning Statement: {user_inputs.get('step2', '[Not Provided]')}"
-    prompt += f"\n3. Marketing Objectives: {user_inputs.get('step3', '[Not Provided]')}"
-    prompt += f"\n4. Marketing Mix (4Ps): {user_inputs.get('step4', '[Not Provided]')}"
-    prompt += "\n\nNow generate a final summary paragraph that reflects a strategic marketing vision."
-    return prompt
-
-def get_executive_summary_prompt(language, user_inputs):
-    business_info = user_inputs.get("business_info", "[Not Provided]")
-    swot = user_inputs.get("swot_summary", "[Not Provided]")
-    vision = user_inputs.get("vision_mission", "[Not Provided]")
-    strategy = user_inputs.get("strategy", "[Not Provided]")
-    marketing = user_inputs.get("marketing", "[Not Provided]")
 
     if language == "th":
         return f"""
