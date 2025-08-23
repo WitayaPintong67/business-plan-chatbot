@@ -65,45 +65,29 @@ def get_marketing_summary_prompt(marketing_inputs):
         )
 
 def get_executive_summary_prompt(language, user_data):
-        return (
-            "<h2>Executive Summary</h2>"
-            "<p>Summarize the business plan below based on these inputs:</p>"
-            f"<b>Business Info:</b> {user_data['business_info']}<br>"
-            f"<b>SWOT Summary:</b> {user_data['swot_summary']}<br>"
-            f"<b>Vision/Mission:</b> {user_data['vision_mission']}<br>"
-            f"<b>Strategies:</b> {user_data['strategy']}<br>"
-            f"<b>Marketing Plan:</b> {user_data['marketing']}<br>"
-            "<p>Please format the entire summary in readable HTML for clear visual presentation.</p>"
-        )
-""")
-
-
-
     if language == "th":
         return f"""
 คุณคือผู้เชี่ยวชาญด้านกลยุทธ์ธุรกิจ
 กรุณาสรุปแผนธุรกิจจากข้อมูลต่อไปนี้เป็นภาษาไทยในรูปแบบที่มืออาชีพ กระชับ ชัดเจน ใช้ภาษาทางธุรกิจ
 
-- ข้อมูลธุรกิจ: {business_info}
-- SWOT: {swot}
-- วิสัยทัศน์ พันธกิจ เป้าหมาย: {vision}
-- กลยุทธ์: {strategy}
-- แผนการตลาด: {marketing}
+- ข้อมูลธุรกิจ: {user_data['business_info']}
+- SWOT: {user_data['swot_summary']}
+- วิสัยทัศน์ พันธกิจ เป้าหมาย: {user_data['vision_mission']}
+- กลยุทธ์: {user_data['strategy']}
+- แผนการตลาด: {user_data['marketing']}
 
 เขียน Executive Summary ที่ครอบคลุมจุดเด่น โอกาส และแนวทางโดยรวมของแผนธุรกิจนี้
 """
     else:
         return f"""
-You're a business strategy consultant.
-Summarize the following business plan inputs into a concise, polished Executive Summary:
-
-- Business Info: {business_info}
-- SWOT: {swot}
-- Vision, Mission, Objectives: {vision}
-- Strategies: {strategy}
-- Marketing Plan: {marketing}
-
-Use a confident, strategic tone. Focus on insights, strategic alignment, and value proposition.
+<h2>Executive Summary</h2>
+<p>Summarize the business plan below based on these inputs:</p>
+<b>Business Info:</b> {user_data['business_info']}<br>
+<b>SWOT Summary:</b> {user_data['swot_summary']}<br>
+<b>Vision/Mission:</b> {user_data['vision_mission']}<br>
+<b>Strategies:</b> {user_data['strategy']}<br>
+<b>Marketing Plan:</b> {user_data['marketing']}<br>
+<p>Please format the entire summary in readable HTML for clear visual presentation.</p>
 """
 
 # ✅ NEW FUNCTION FOR FINANCIAL INPUTS
